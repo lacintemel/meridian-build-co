@@ -1,26 +1,467 @@
 @import "tailwindcss";
 
+/* ========================================
+   MERIDIAN BUILD CO. - DESIGN SYSTEM
+   Dark, Premium Construction & Architecture
+   ======================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Dark Palette */
+  --color-obsidian: #0A0A0B;
+  --color-charcoal: #1A1A1D;
+  --color-graphite: #2D2D32;
+  --color-slate: #3D3D42;
+  --color-steel: #52525B;
+
+  /* Accent Colors */
+  --color-gold: #C9A227;
+  --color-gold-light: #D4B33C;
+  --color-gold-dark: #A8871E;
+  --color-bronze: #8B7355;
+
+  /* Neutral Tones */
+  --color-platinum: #E8E8E8;
+  --color-silver: #A1A1AA;
+  --color-ash: #71717A;
+
+  /* Functional Colors */
+  --color-success: #4ADE80;
+  --color-error: #F87171;
+
+  /* Typography */
+  --font-heading: "Outfit", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  /* Spacing Scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 700ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+  --shadow-gold: 0 4px 20px rgba(201, 162, 39, 0.3);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background-color: var(--color-obsidian);
+  color: var(--color-platinum);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-obsidian);
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-platinum);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+  color: var(--color-silver);
+  line-height: 1.7;
+}
+
+/* ========================================
+   LAYOUT UTILITIES
+   ======================================== */
+
+.container-luxury {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+
+.section-spacing {
+  padding: clamp(4rem, 10vw, 8rem) 0;
+}
+
+.section-spacing-lg {
+  padding: clamp(6rem, 12vw, 10rem) 0;
+}
+
+/* ========================================
+   GRID OVERLAY (ARCHITECTURAL ELEMENT)
+   ======================================== */
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(201, 162, 39, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201, 162, 39, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Corner Accent Lines */
+.corner-accent {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+}
+
+.corner-accent::before,
+.corner-accent::after {
+  content: '';
+  position: absolute;
+  background-color: var(--color-gold);
+}
+
+.corner-accent--top-left::before {
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 60px;
+}
+
+.corner-accent--top-left::after {
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 1px;
+}
+
+.corner-accent--bottom-right::before {
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  height: 60px;
+}
+
+.corner-accent--bottom-right::after {
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 1px;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background-color: var(--color-gold);
+  color: var(--color-obsidian);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-gold-light);
+  transform: translateX(-100%);
+  transition: transform var(--transition-base);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(0);
+}
+
+.btn-primary span,
+.btn-primary svg {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background-color: transparent;
+  color: var(--color-platinum);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--color-steel);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-gold);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-text:hover {
+  gap: 0.75rem;
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+
+.card-dark {
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-graphite);
+  transition: all var(--transition-base);
+}
+
+.card-dark:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+
+.input-dark {
+  width: 100%;
+  padding: 1rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-graphite);
+  color: var(--color-platinum);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color var(--transition-base);
+  outline: none;
+}
+
+.input-dark:focus {
+  border-color: var(--color-gold);
+}
+
+.input-dark::placeholder {
+  color: var(--color-ash);
+}
+
+/* ========================================
+   DIVIDERS
+   ======================================== */
+
+.divider-gold {
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-gold);
+}
+
+.divider-gradient {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gold),
+    transparent
+  );
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animate-ken-burns {
+  animation: kenBurns 20s ease-out infinite alternate;
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-steel);
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+@media (max-width: 768px) {
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* ========================================
+   GRADIENT BACKGROUNDS
+   ======================================== */
+
+.bg-gradient-dark {
+  background: linear-gradient(
+    180deg,
+    var(--color-obsidian) 0%,
+    var(--color-charcoal) 100%
+  );
+}
+
+.bg-gradient-radial {
+  background: radial-gradient(
+    ellipse at center,
+    var(--color-charcoal) 0%,
+    var(--color-obsidian) 70%
+  );
+}
+
+/* Text Gradient */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

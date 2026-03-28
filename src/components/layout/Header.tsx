@@ -74,7 +74,12 @@ export default function Header() {
                   className="text-sm font-[var(--font-heading)] uppercase tracking-widest text-[var(--color-silver)] hover:text-[var(--color-gold)] transition-colors duration-300 relative group"
                 >
                   {item.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-gold)] transition-all duration-300 group-hover:w-full" />
+                  <motion.span
+                    className="absolute -bottom-1 left-0 h-[1px] bg-[var(--color-gold)]"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </Link>
               </li>
             ))}

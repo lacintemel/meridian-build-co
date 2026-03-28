@@ -41,7 +41,7 @@ export default function Projects() {
         </motion.div>
 
         <motion.div
-          className="grid gap-5 lg:grid-cols-3"
+          className="grid gap-6 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -50,36 +50,102 @@ export default function Projects() {
             <motion.article
               key={project.name}
               variants={itemVariants}
-              className="card-dark p-7 md:p-8 flex flex-col group"
+              className="card-dark flex flex-col group overflow-hidden"
               whileHover={{ y: -8 }}
             >
+              {/* Premium Metadata Bar */}
               <motion.div
-                className="flex items-center justify-between gap-4 mb-6 text-xs uppercase tracking-widest text-[var(--color-ash)]"
-                whileHover={{ scale: 1.05 }}
+                className="card-metadata"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ delay: 0.2 }}
               >
                 <motion.span
-                  className="px-3 py-1 rounded bg-[var(--color-gold)]/10 text-[var(--color-gold)] transition-all duration-300"
-                  whileHover={{ backgroundColor: "rgba(201, 162, 39, 0.2)" }}
+                  className="card-metadata-category"
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ duration: 0.2 }}
                 >
                   {project.category}
                 </motion.span>
-                <span>{project.year}</span>
+                <span className="card-metadata-year">{project.year}</span>
               </motion.div>
-              <h3 className="text-2xl mb-3 group-hover:text-[var(--color-gold)] transition-colors duration-300">
-                {project.name}
-              </h3>
-              <p className="text-sm uppercase tracking-[0.22em] text-[var(--color-bronze)] mb-5">
-                {project.location}
-              </p>
-              <p className="mb-8">{project.scope}</p>
+
+              {/* Animated Divider */}
               <motion.div
-                className="mt-auto divider-gradient"
+                className="px-8"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: 0.3 }}
-              />
+              >
+                <div className="card-metadata-divider" />
+              </motion.div>
+
+              {/* Content Section */}
+              <div className="px-8 py-6 flex flex-col flex-grow gap-4">
+                {/* Title */}
+                <motion.h3
+                  className="text-3xl font-bold text-[var(--color-platinum)] leading-tight group-hover:text-[var(--color-gold)] transition-colors duration-300"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ delay: 0.25 }}
+                >
+                  {project.name}
+                </motion.h3>
+
+                {/* Location */}
+                <motion.p
+                  className="text-sm uppercase tracking-[0.22em] text-[var(--color-bronze)] font-medium"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  📍 {project.location}
+                </motion.p>
+
+                {/* Description */}
+                <motion.p
+                  className="text-base leading-relaxed text-[var(--color-silver)] mt-2"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ delay: 0.35 }}
+                >
+                  {project.scope}
+                </motion.p>
+
+                {/* Bottom Divider & CTA */}
+                <motion.div
+                  className="mt-auto pt-4"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <motion.div
+                    className="divider-gradient mb-4"
+                    initial={{ scaleX: 0 }}
+                    animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+                    transition={{ delay: 0.45, duration: 0.5 }}
+                    style={{ originX: 0 }}
+                  />
+                  <motion.span
+                    className="text-xs uppercase tracking-widest text-[var(--color-gold)] font-semibold inline-flex items-center gap-2"
+                    whileHover={{ x: 4 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    View Details
+                    <motion.span
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      →
+                    </motion.span>
+                  </motion.span>
+                </motion.div>
+              </div>
+
+              {/* Hover Overlay Gradient */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-[var(--color-gold)]/0 to-[var(--color-gold)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded"
+                className="absolute inset-0 bg-gradient-to-br from-[var(--color-gold)]/0 via-transparent to-[var(--color-gold)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 initial={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               />

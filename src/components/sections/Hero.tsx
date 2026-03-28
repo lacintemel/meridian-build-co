@@ -76,7 +76,7 @@ export default function Hero() {
           >
             Building
             <br />
-            Tomorrow's
+            Tomorrow&apos;s
             <br />
             <span className="text-gradient-gold">Landmarks</span>
           </motion.h1>
@@ -88,7 +88,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-lg md:text-xl text-[var(--color-silver)] max-w-xl mb-10 leading-relaxed"
           >
-            For over 18 years, we've transformed visions into architectural
+            For over 18 years, we&apos;ve transformed visions into architectural
             masterpieces. Precision engineering meets innovative design.
           </motion.p>
 

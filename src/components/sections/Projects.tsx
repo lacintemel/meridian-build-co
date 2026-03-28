@@ -81,10 +81,10 @@ export default function Projects() {
               </motion.div>
 
               {/* Content Section */}
-              <div className="px-8 py-6 flex flex-col flex-grow gap-4">
+              <div className="px-8 py-6 flex flex-col flex-grow gap-4 overflow-hidden">
                 {/* Title */}
                 <motion.h3
-                  className="text-3xl font-bold text-[var(--color-platinum)] leading-tight group-hover:text-[var(--color-gold)] transition-colors duration-300"
+                  className="text-2xl md:text-3xl font-bold text-[var(--color-platinum)] leading-snug group-hover:text-[var(--color-gold)] transition-colors duration-300 line-clamp-2"
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                   transition={{ delay: 0.25 }}
@@ -94,7 +94,7 @@ export default function Projects() {
 
                 {/* Location */}
                 <motion.p
-                  className="text-sm uppercase tracking-[0.22em] text-[var(--color-bronze)] font-medium"
+                  className="text-xs md:text-sm uppercase tracking-[0.22em] text-[var(--color-bronze)] font-medium truncate"
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                   transition={{ delay: 0.3 }}
@@ -104,7 +104,7 @@ export default function Projects() {
 
                 {/* Description */}
                 <motion.p
-                  className="text-base leading-relaxed text-[var(--color-silver)] mt-2"
+                  className="text-sm md:text-base leading-relaxed text-[var(--color-silver)] line-clamp-3"
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                   transition={{ delay: 0.35 }}
@@ -114,7 +114,7 @@ export default function Projects() {
 
                 {/* Bottom Divider & CTA */}
                 <motion.div
-                  className="mt-auto pt-4"
+                  className="mt-auto pt-4 overflow-hidden"
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                   transition={{ delay: 0.4 }}
@@ -127,7 +127,7 @@ export default function Projects() {
                     style={{ originX: 0 }}
                   />
                   <motion.span
-                    className="text-xs uppercase tracking-widest text-[var(--color-gold)] font-semibold inline-flex items-center gap-2"
+                    className="text-xs uppercase tracking-widest text-[var(--color-gold)] font-semibold inline-flex items-center gap-2 whitespace-nowrap"
                     whileHover={{ x: 4 }}
                     transition={{ duration: 0.2 }}
                   >

@@ -36,7 +36,7 @@ export default function Services() {
             <motion.article
               key={service.title}
               variants={itemVariants}
-              className="card-dark p-8 group cursor-pointer flex flex-col"
+              className="card-dark p-8 group cursor-pointer flex flex-col overflow-hidden"
               whileHover={{ y: -8 }}
             >
               {/* Service Badge / Number */}
@@ -47,7 +47,7 @@ export default function Services() {
                 transition={{ delay: index * 0.1 + 0.3 }}
               >
                 <motion.span
-                  className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5 border border-[var(--color-gold)]/30"
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-gold)]/20 to-[var(--color-gold)]/5 border border-[var(--color-gold)]/30 flex-shrink-0"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                   transition={{
@@ -60,14 +60,14 @@ export default function Services() {
                     0{index + 1}
                   </span>
                 </motion.span>
-                <p className="text-xs tracking-[0.2em] uppercase text-[var(--color-bronze)] font-semibold">
+                <p className="text-xs tracking-[0.2em] uppercase text-[var(--color-bronze)] font-semibold whitespace-nowrap">
                   Service
                 </p>
               </motion.div>
 
               {/* Title */}
               <motion.h3
-                className="text-2xl font-bold mb-4 text-[var(--color-platinum)] group-hover:text-[var(--color-gold)] transition-colors duration-300"
+                className="text-xl md:text-2xl font-bold mb-3 text-[var(--color-platinum)] group-hover:text-[var(--color-gold)] transition-colors duration-300 line-clamp-2"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: index * 0.1 + 0.35 }}
@@ -77,7 +77,7 @@ export default function Services() {
 
               {/* Description */}
               <motion.p
-                className="text-base leading-relaxed text-[var(--color-silver)] mb-4"
+                className="text-sm md:text-base leading-relaxed text-[var(--color-silver)] mb-4 line-clamp-2"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: index * 0.1 + 0.4 }}
@@ -98,7 +98,7 @@ export default function Services() {
 
               {/* Details */}
               <motion.p
-                className="text-sm text-[var(--color-ash)] leading-relaxed mt-auto"
+                className="text-xs md:text-sm text-[var(--color-ash)] leading-relaxed mt-auto line-clamp-3"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: index * 0.1 + 0.5 }}

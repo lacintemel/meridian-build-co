@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import About from "@/components/sections/About";
 import ContactCta from "@/components/sections/ContactCta";
 import Hero from "@/components/sections/Hero";
@@ -16,16 +17,7 @@ export default function Home() {
         <Projects />
         <ContactCta />
       </main>
-      <footer className="border-t border-[var(--color-graphite)] py-8">
-        <div className="container-luxury flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-          <p className="text-sm text-[var(--color-ash)]">
-            © {new Date().getFullYear()} Meridian Build Co. All rights reserved.
-          </p>
-          <p className="text-xs uppercase tracking-widest text-[var(--color-silver)]">
-            Architecture • Construction • Infrastructure
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

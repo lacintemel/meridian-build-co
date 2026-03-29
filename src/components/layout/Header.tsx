@@ -3,18 +3,20 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navItems = [
-  { label: "Home", href: "#" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Services", href: "/services" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,22 +69,27 @@ export default function Header() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hidden lg:flex items-center gap-10"
           >
-            {navItems.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  className="text-sm font-[var(--font-heading)] uppercase tracking-widest text-[var(--color-silver)] hover:text-[var(--color-gold)] transition-colors duration-300 relative group"
-                >
-                  {item.label}
-                  <motion.span
-                    className="absolute -bottom-1 left-0 h-[1px] bg-[var(--color-gold)]"
-                    initial={{ width: 0 }}
-                    whileHover={{ width: "100%" }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+              return (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className={`text-sm font-[var(--font-heading)] uppercase tracking-widest transition-colors duration-300 relative group ${
+                      isActive ? "text-[var(--color-gold)]" : "text-[var(--color-silver)] hover:text-[var(--color-gold)]"
+                    }`}
+                  >
+                    {item.label}
+                    <motion.span
+                      className="absolute -bottom-1 left-0 h-[1px] bg-[var(--color-gold)]"
+                      initial={{ width: isActive ? "100%" : 0 }}
+                      whileHover={{ width: "100%" }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </motion.ul>
 
           {/* CTA Button */}
@@ -93,7 +100,7 @@ export default function Header() {
             className="hidden lg:block"
           >
             <Link
-              href="#contact"
+              href="/contact"
               className="btn-primary text-xs px-6 py-3"
             >
               <span>Start Your Project</span>
@@ -177,7 +184,7 @@ export default function Header() {
                 className="mt-8"
               >
                 <Link
-                  href="#contact"
+                  href="/contact"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="btn-primary"
                 >

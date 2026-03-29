@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { projects } from "@/data/home";
 import ImageGalleryModal from "@/components/features/ImageGalleryModal";
@@ -12,14 +14,8 @@ interface ProjectDetailPageProps {
   };
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
-
-export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
-  const { slug } = await params;
+export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+  const { slug } = params;
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
@@ -153,7 +149,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
             </h2>
             <div className="space-y-6">
               {project.description.split("\n").map((paragraph, index) => (
-                <p key={index} className="text-lg text-[var(--color-silver)] leading-relaxed">
+                <p key={`paragraph-${paragraph.slice(0, 20)}-${index}`} className="text-lg text-[var(--color-silver)] leading-relaxed">
                   {paragraph}
                 </p>
               ))}

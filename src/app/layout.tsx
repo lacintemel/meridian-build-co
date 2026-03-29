@@ -1,18 +1,6 @@
 import type { Metadata } from "next";
-import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
-
-const outfit = Outfit({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const inter = Inter({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
+import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
   title: "Meridian Build Co. | Architecture & Construction Excellence",
@@ -41,8 +29,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
+    <html lang="en">
       <body className="bg-[var(--color-obsidian)] text-[var(--color-platinum)] min-h-screen">
+        <Header />
         {children}
       </body>
     </html>

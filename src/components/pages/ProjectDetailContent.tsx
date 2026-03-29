@@ -146,7 +146,7 @@ export default function ProjectDetailContent({ slug }: ProjectDetailContentProps
             </h2>
             <div className="space-y-6">
               {project.description.split("\n").map((paragraph, index) => (
-                <p key={index} className="text-lg text-[var(--color-silver)] leading-relaxed">
+                <p key={`paragraph-${paragraph.slice(0, 20)}-${index}`} className="text-lg text-[var(--color-silver)] leading-relaxed">
                   {paragraph}
                 </p>
               ))}

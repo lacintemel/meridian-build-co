@@ -28,9 +28,9 @@
   --color-success: #4ADE80;
   --color-error: #F87171;
 
-  /* Typography */
-  --font-heading: "Outfit", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* Typography - Using system fallback fonts */
+  --font-heading: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   /* Spacing Scale */
   --space-xs: 0.5rem;

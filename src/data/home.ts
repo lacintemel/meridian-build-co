@@ -41,12 +41,7 @@ export type TeamMember = {
   bio?: string;
 };
 
-export const aboutMetrics: AboutMetric[] = [
-  { value: "18+", label: "Years building at scale" },
-  { value: "42", label: "Specialists across disciplines" },
-  { value: "27", label: "Cities delivered in" },
-];
-
+// Services
 export const services: Service[] = [
   {
     title: "Design-Build Delivery",
@@ -80,7 +75,7 @@ export const projects: Project[] = [
     area: "1.2M sq ft",
     services: ["Master Planning", "Architecture", "Structural Engineering", "MEP Engineering", "Project Management"],
     images: {
-      hero: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&h=600&fit=crop",
+      hero: "file:///Users/lacintemel/.gemini/antigravity/brain/60ade206-e2ed-418e-a8a0-342dbc0eba0b/commercial_innovation_campus_thumb_1774794630006.png",
       gallery: [
         { url: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&h=400&fit=crop", alt: "Main facade", caption: "North-facing facade with integrated solar shading" },
         { url: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop", alt: "Interior lobby", caption: "Grand atrium connecting all seven laboratory levels" },
@@ -107,7 +102,7 @@ export const projects: Project[] = [
     area: "1.8M sq ft",
     services: ["Structural Engineering", "MEP Retrofit", "Architecture", "Phased Construction Management"],
     images: {
-      hero: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=600&fit=crop",
+      hero: "file:///Users/lacintemel/.gemini/antigravity/brain/60ade206-e2ed-418e-a8a0-342dbc0eba0b/financial_tower_modernization_thumb_1774794682822.png",
       gallery: [
         { url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop", alt: "Tower exterior", caption: "Restored glass and steel facade with LED lighting" },
         { url: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop", alt: "Lobby modernization", caption: "Reimagined main lobby with advanced security systems" },
@@ -134,7 +129,7 @@ export const projects: Project[] = [
     area: "385K sq ft",
     services: ["Station Design", "Structural Engineering", "Civil Infrastructure", "MEP Systems"],
     images: {
-      hero: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop",
+      hero: "file:///Users/lacintemel/.gemini/antigravity/brain/60ade206-e2ed-418e-a8a0-342dbc0eba0b/transit_hub_canopy_thumb_1774794700064.png",
       gallery: [
         { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop", alt: "Station entry", caption: "Dynamic entry pavilion with distinctive canopy" },
         { url: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&h=400&fit=crop", alt: "Platform areas", caption: "Expanded platform with weather protection" },
@@ -176,15 +171,20 @@ export const team: TeamMember[] = [
   },
 ];
 
-export const aboutContent = {
+export const about = {
+  history: "Founded in 2006, Meridian Build Co. emerged from a vision to redefine how complex projects are delivered. What began as a boutique architecture and engineering partnership has evolved into a multidisciplinary studio with expertise spanning design, engineering, and construction management.",
+  story: "Founded in 2006, Meridian Build Co. emerged from a vision to redefine how complex projects are delivered. What began as a boutique architecture and engineering partnership has evolved into a multidisciplinary studio with expertise spanning design, engineering, and construction management.",
   mission: "To design and build transformative spaces that advance human connection, environmental stewardship, and long-term value creation.",
   vision: "A world where architecture and engineering elevate the built environment, creating communities that are resilient, inclusive, and inspiring.",
-  story: "Founded in 2006, Meridian Build Co. emerged from a vision to redefine how complex projects are delivered. What began as a boutique architecture and engineering partnership has evolved into a multidisciplinary studio with expertise spanning design, engineering, and construction management.",
+  stats: [
+    { value: "18+", label: "Years building at scale" },
+    { value: "42", label: "Specialists across disciplines" },
+    { value: "27", label: "Cities delivered in" },
+  ],
+  values: [
+    "Precision Engineering",
+    "Innovative Design",
+    "Collaborative Process",
+    "Sustainable Outcomes",
+  ]
 };
-
-export const values = [
-  "Precision Engineering",
-  "Innovative Design",
-  "Collaborative Process",
-  "Sustainable Outcomes",
-];

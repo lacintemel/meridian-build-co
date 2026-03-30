@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { aboutContent, team, values } from "@/data/home";
+import { about, team } from "@/data/home";
 import TeamCard from "@/components/features/TeamCard";
 import Footer from "@/components/layout/Footer";
 
@@ -46,7 +46,7 @@ export default function AboutPage() {
                 Mission
               </h2>
               <p className="text-lg text-[var(--color-silver)] leading-relaxed">
-                {aboutContent.mission}
+                {about.mission}
               </p>
             </motion.div>
 
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 Vision
               </h2>
               <p className="text-lg text-[var(--color-silver)] leading-relaxed">
-                {aboutContent.vision}
+                {about.vision}
               </p>
             </motion.div>
           </div>
@@ -82,7 +82,7 @@ export default function AboutPage() {
               Our Story
             </h2>
             <p className="text-lg text-[var(--color-silver)] leading-relaxed mb-6">
-              {aboutContent.story}
+              {about.story}
             </p>
             <p className="text-lg text-[var(--color-silver)] leading-relaxed">
               Today, we merge deep technical expertise with creative vision, delivering projects that set new standards for the built environment. Each project reflects our commitment to precision, innovation, and human-centered design.
@@ -105,7 +105,7 @@ export default function AboutPage() {
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, index) => (
+            {about.values.map((value, index) => (
               <motion.div
                 key={value}
                 className="card-dark p-8 text-center"

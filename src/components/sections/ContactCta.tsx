@@ -1,79 +1,78 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function ContactCta() {
-  const { ref, isInView } = useScrollReveal({ threshold: 0.2 });
+  const { ref, isInView } = useScrollReveal({ threshold: 0.3 });
 
   return (
-    <section id="contact" className="section-spacing-lg relative overflow-hidden" ref={ref}>
-      <div className="absolute inset-0 bg-gradient-radial opacity-70" aria-hidden="true" />
+    <section
+      ref={ref}
+      className="section-spacing bg-black relative overflow-hidden"
+    >
+      {/* Background elements */}
+      <div className="absolute inset-0 grid-structure opacity-10 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--color-gold)] to-transparent opacity-20" />
+
       <div className="container-luxury relative z-10">
         <motion.div
-          className="card-dark p-8 md:p-12 lg:p-14"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="glass-gold p-12 md:p-24 text-center relative overflow-hidden group border border-[var(--color-gold)]/20"
         >
-          <motion.p
-            className="text-xs uppercase tracking-[0.28em] text-[var(--color-gold)] mb-5"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            Start A Conversation
-          </motion.p>
-          <motion.h2
-            className="max-w-3xl mb-6"
-            initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            transition={{ delay: 0.2 }}
-          >
-            Planning a complex build? Let&apos;s map scope, budget, and schedule together.
-          </motion.h2>
-          <motion.p
-            className="max-w-2xl mb-10"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Share your goals and constraints, and our pre-construction team will return a
-            strategic first-pass plan in 48 hours.
-          </motion.p>
+          {/* Animated corner accents */}
+          <div className="absolute top-0 left-0 w-20 h-20 border-t border-l border-[var(--color-gold)] opacity-40 group-hover:w-32 group-hover:h-32 transition-all duration-700" />
+          <div className="absolute bottom-0 right-0 w-20 h-20 border-b border-r border-[var(--color-gold)] opacity-40 group-hover:w-32 group-hover:h-32 transition-all duration-700" />
 
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <motion.div
-              className="text-sm uppercase tracking-widest text-[var(--color-silver)]"
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+          <div className="max-w-3xl mx-auto relative z-10">
+            <motion.p
+              className="text-xs uppercase tracking-[0.5em] text-[var(--color-gold)] mb-8 font-medium"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.2 }}
+            >
+              Ready to build?
+            </motion.p>
+
+            <motion.h2
+              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-10 text-[var(--color-platinum)] leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3 }}
+            >
+              Let&apos;s engineer your <span className="text-gradient-gold">next success</span>.
+            </motion.h2>
+
+            <motion.p
+              className="text-lg md:text-xl text-[var(--color-silver)] font-light mb-14 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4 }}
             >
-              <motion.p
-                whileHover={{ x: 4, color: "var(--color-gold)" }}
-                transition={{ duration: 0.2 }}
-              >
-                hello@meridianbuild.co
-              </motion.p>
-              <motion.p
-                className="mt-2"
-                whileHover={{ x: 4, color: "var(--color-gold)" }}
-                transition={{ duration: 0.2 }}
-              >
-                +1 (206) 555-0187
-              </motion.p>
-            </motion.div>
+              From complex seismic retrofits to visionary innovation campuses,
+              we bring certainty to every stage of the build.
+            </motion.p>
+
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-8 justify-center items-center"
             >
-              <Link href="mailto:hello@meridianbuild.co" className="btn-primary w-fit">
-                <span>Book Project Consultation</span>
+              <Link href="/contact" className="btn-luxury">
+                Start a Conversation
+              </Link>
+              <Link href="/projects" className="text-sm uppercase tracking-widest text-[var(--color-platinum)] hover:text-[var(--color-gold)] transition-colors">
+                Explore All Projects
               </Link>
             </motion.div>
           </div>
+
+          {/* Decorative background glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[var(--color-gold)] opacity-[0.02] blur-[120px] rounded-full pointer-events-none" />
         </motion.div>
       </div>
     </section>

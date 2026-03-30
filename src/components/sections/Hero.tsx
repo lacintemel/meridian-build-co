@@ -3,12 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-
-const stats = [
-  { value: "200+", label: "Projects Completed" },
-  { value: "18", label: "Years Experience" },
-  { value: "$2.5B", label: "Value Delivered" },
-];
+import Image from "next/image";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,157 +12,105 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   return (
     <section
       ref={containerRef}
-      className="relative h-screen min-h-[700px] flex items-center overflow-hidden"
+      className="relative h-screen min-h-[800px] flex items-center overflow-hidden bg-black"
     >
-      {/* Background Image with Ken Burns Effect */}
-      <div className="absolute inset-0 z-0">
-        <motion.div
-          className="absolute inset-0 animate-ken-burns"
-          style={{ y }}
-        >
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')",
-            }}
-          />
-        </motion.div>
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-obsidian)] via-[var(--color-obsidian)]/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-obsidian)] via-transparent to-[var(--color-obsidian)]/30" />
-      </div>
+      {/* Cinematic Parallax Background */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{ scale, y }}
+      >
+        <div className="absolute inset-0 bg-black/40 z-10" />
+        <img
+          src="file:///Users/lacintemel/.gemini/antigravity/brain/60ade206-e2ed-418e-a8a0-342dbc0eba0b/modern_architectural_masterpiece_hero_1774794615147.png"
+          alt="Architectural Masterpiece"
+          className="w-full h-full object-cover"
+        />
+        {/* Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-20" />
+      </motion.div>
 
-      {/* Grid Overlay */}
-      <div className="grid-overlay" />
-
-      {/* Corner Accents */}
-      <div className="corner-accent corner-accent--top-left top-8 left-8 hidden lg:block" />
-      <div className="corner-accent corner-accent--bottom-right bottom-32 right-8 hidden lg:block" />
+      {/* Grid Overlay Structure */}
+      <div className="absolute inset-0 grid-structure opacity-20 pointer-events-none z-10" />
 
       {/* Content */}
-      <motion.div className="container-luxury relative z-10" style={{ opacity }}>
-        <div className="max-w-3xl">
-          {/* Label */}
+      <div className="container-luxury relative z-30">
+        <div className="max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex items-center gap-4 mb-6"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center gap-6 mb-8"
           >
-            <span className="w-12 h-[1px] bg-[var(--color-gold)]" />
-            <span className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
-              Architecture & Construction
+            <span className="w-20 h-[1px] bg-[var(--color-gold)]" />
+            <span className="text-xs uppercase tracking-[0.5em] text-[var(--color-gold)] font-medium">
+              Precision • Luxury • Trust
             </span>
           </motion.div>
 
-          {/* Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-[var(--font-heading)] font-bold text-[var(--color-platinum)] leading-[1.1] mb-6"
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.9] mb-10"
           >
-            Building
+            <span className="text-reveal">
+              <span className="inline-block">Architectural</span>
+            </span>
             <br />
-            Tomorrow&apos;s
-            <br />
-            <span className="text-gradient-gold">Landmarks</span>
+            <span className="text-reveal">
+              <span className="text-gradient-gold">Excellence</span>
+            </span>
           </motion.h1>
 
-          {/* Subheading */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-lg md:text-xl text-[var(--color-silver)] max-w-xl mb-10 leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="text-lg md:text-2xl text-[var(--color-silver)] max-w-2xl mb-12 leading-relaxed font-light"
           >
-            For over 18 years, we&apos;ve transformed visions into architectural
-            masterpieces. Precision engineering meets innovative design.
+            For two decades, Meridian Build Co. has defined the intersection of technically demanding engineering and uncompromising architectural vision.
           </motion.p>
 
-          {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-8 items-start sm:items-center"
           >
-            <Link href="#projects" className="btn-primary">
-              <span>View Our Work</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
+            <Link href="/projects" className="btn-luxury">
+              View Portfolio
             </Link>
-            <Link href="#contact" className="btn-secondary">
-              <span>Start a Project</span>
+            <div className="h-[1px] w-12 bg-[var(--color-graphite)] hidden sm:block" />
+            <Link href="/contact" className="text-sm uppercase tracking-widest text-[var(--color-platinum)] hover:text-[var(--color-gold)] transition-colors">
+              Start a Conversation
             </Link>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
 
-      {/* Stats Bar */}
+      {/* Scroll indicator refined */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1 }}
-        className="absolute bottom-0 left-0 right-0 z-10"
-      >
-        <div className="bg-[var(--color-charcoal)]/90 backdrop-blur-md border-t border-[var(--color-graphite)]">
-          <div className="container-luxury">
-            <div className="grid grid-cols-3 divide-x divide-[var(--color-graphite)]">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-                  className="py-6 md:py-8 px-4 md:px-8 text-center"
-                >
-                  <div className="text-2xl md:text-4xl font-[var(--font-heading)] font-bold text-[var(--color-gold)] mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs md:text-sm uppercase tracking-wider text-[var(--color-silver)]">
-                    {stat.label}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-36 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2"
+        transition={{ delay: 1.5, duration: 1 }}
       >
-        <span className="text-xs uppercase tracking-widest text-[var(--color-silver)]">
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-[1px] h-8 bg-gradient-to-b from-[var(--color-gold)] to-transparent"
-        />
+        <div className="w-[1px] h-20 bg-gradient-to-b from-[var(--color-gold)] to-transparent relative overflow-hidden">
+          <motion.div
+            className="absolute top-0 left-0 w-full h-full bg-white/40"
+            animate={{ y: ["-100%", "100%"] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          />
+        </div>
+        <span className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-silver)]">Scroll</span>
       </motion.div>
     </section>
   );

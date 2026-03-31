@@ -11,7 +11,7 @@ export default function Footer() {
       { label: "About", href: "/about" },
       { label: "Projects", href: "/projects" },
       { label: "Services", href: "/services" },
-    ],
+    ],  
     contact: [
       { label: "Get in Touch", href: "/contact" },
       { label: "hello@meridianbuild.co", href: "mailto:hello@meridianbuild.co" },

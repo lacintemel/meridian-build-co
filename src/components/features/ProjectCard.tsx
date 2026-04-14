@@ -23,61 +23,46 @@ export default function ProjectCard({
   return (
     <Link href={`/projects/${slug}`}>
       <motion.article
-        className="card-dark flex flex-col group overflow-hidden cursor-pointer"
-        whileHover={{ y: -8 }}
+        className="card-dark flex flex-col group cursor-pointer h-full"
+        whileHover={{ y: -6 }}
         transition={{ duration: 0.3 }}
       >
         {/* Image */}
-        <div className="relative h-48 md:h-56 overflow-hidden bg-[var(--color-graphite)]">
-          <motion.img
+        <div className="relative h-52 md:h-60 overflow-hidden">
+          <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-obsidian)]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-elevated)] via-transparent to-transparent" />
         </div>
 
         {/* Content */}
-        <div className="px-8 py-6 flex flex-col flex-grow gap-3">
-          <div className="flex items-center justify-between">
-            <motion.span
-              className="card-metadata-category"
-              whileHover={{ scale: 1.08 }}
-            >
-              {category}
-            </motion.span>
+        <div className="p-6 md:p-7 flex flex-col flex-grow gap-3">
+          <div className="flex items-center gap-3">
+            <span className="card-metadata-category">{category}</span>
           </div>
 
-          <h3 className="text-2xl md:text-3xl font-bold text-[var(--color-platinum)] group-hover:text-[var(--color-gold)] transition-colors duration-300 line-clamp-2">
+          <h3 className="text-xl md:text-2xl font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors duration-300 line-clamp-2">
             {title}
           </h3>
 
-          <p className="text-xs md:text-sm uppercase tracking-[0.22em] text-[var(--color-bronze)] font-medium truncate">
-            📍 {location}
+          <p className="text-xs uppercase tracking-[0.15em] text-[var(--accent-muted)] font-medium">
+            {location}
           </p>
 
-          <p className="text-sm md:text-base leading-relaxed text-[var(--color-silver)] line-clamp-2 flex-grow">
+          <p className="text-sm leading-relaxed text-[var(--text-secondary)] line-clamp-2 flex-grow">
             {description}
           </p>
 
-          <motion.div
-            className="pt-4 mt-auto"
-            whileHover={{ x: 4 }}
-          >
-            <span className="text-xs uppercase tracking-widest text-[var(--color-gold)] font-semibold inline-flex items-center gap-2">
-              View Project
-              <span>→</span>
-            </span>
-          </motion.div>
+          <div className="pt-3 mt-auto flex items-center gap-2 text-xs uppercase tracking-widest text-[var(--accent)] font-semibold group-hover:gap-3 transition-all duration-300">
+            <span>View Project</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
         </div>
-
-        {/* Hover overlay */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-[var(--color-gold)]/0 via-transparent to-[var(--color-gold)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          initial={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        />
       </motion.article>
     </Link>
   );

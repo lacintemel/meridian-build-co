@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface GalleryImage {
@@ -17,16 +17,58 @@ export default function ImageGalleryModal({ images }: ImageGalleryModalProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const selectedImage = selectedIndex !== null ? images[selectedIndex] : null;
 
+  const goNext = useCallback(() => {
+    if (selectedIndex === null) return;
+    setSelectedIndex(selectedIndex === images.length - 1 ? 0 : selectedIndex + 1);
+  }, [selectedIndex, images.length]);
+
+  const goPrev = useCallback(() => {
+    if (selectedIndex === null) return;
+    setSelectedIndex(selectedIndex === 0 ? images.length - 1 : selectedIndex - 1);
+  }, [selectedIndex, images.length]);
+
+  const close = useCallback(() => {
+    setSelectedIndex(null);
+  }, []);
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "ArrowRight":
+          goNext();
+          break;
+        case "ArrowLeft":
+          goPrev();
+          break;
+        case "Escape":
+          close();
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [selectedIndex, goNext, goPrev, close]);
+
   return (
     <>
       {/* Thumbnail Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
         {images.map((image, index) => (
           <motion.button
             key={index}
             onClick={() => setSelectedIndex(index)}
-            className="relative h-40 md:h-56 overflow-hidden rounded-lg group cursor-pointer"
+            className="relative h-36 md:h-48 overflow-hidden rounded-lg group cursor-pointer focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-void)]"
             whileHover={{ scale: 1.02 }}
+            aria-label={`View ${image.alt}`}
           >
             <img
               src={image.url}
@@ -34,14 +76,11 @@ export default function ImageGalleryModal({ images }: ImageGalleryModalProps) {
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-obsidian)]/40 to-transparent group-hover:from-[var(--color-obsidian)]/20 transition-all duration-300" />
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-              whileHover={{ scale: 1.1 }}
-            >
-              <div className="w-12 h-12 rounded-full bg-[var(--color-gold)] flex items-center justify-center">
+            <div className="absolute inset-0 bg-[var(--bg-void)]/30 group-hover:bg-[var(--bg-void)]/10 transition-colors duration-300" />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="w-10 h-10 rounded-full bg-[var(--accent)] flex items-center justify-center">
                 <svg
-                  className="w-6 h-6 text-[var(--color-obsidian)]"
+                  className="w-5 h-5 text-[var(--bg-void)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -54,7 +93,7 @@ export default function ImageGalleryModal({ images }: ImageGalleryModalProps) {
                   />
                 </svg>
               </div>
-            </motion.div>
+            </div>
           </motion.button>
         ))}
       </div>
@@ -66,13 +105,18 @@ export default function ImageGalleryModal({ images }: ImageGalleryModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedIndex(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--color-obsidian)]/95 backdrop-blur-md p-4"
+            transition={{ duration: 0.2 }}
+            onClick={close}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--bg-void)]/95 backdrop-blur-lg p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Image gallery"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
               className="relative max-w-4xl w-full"
             >
@@ -80,90 +124,52 @@ export default function ImageGalleryModal({ images }: ImageGalleryModalProps) {
               <img
                 src={selectedImage.url}
                 alt={selectedImage.alt}
-                className="w-full h-auto rounded-lg"
+                className="w-full h-auto rounded-xl"
               />
 
               {/* Caption */}
               {selectedImage.caption && (
-                <p className="mt-4 text-center text-sm text-[var(--color-silver)]">
+                <p className="mt-4 text-center text-sm text-[var(--text-secondary)]">
                   {selectedImage.caption}
                 </p>
               )}
 
               {/* Close Button */}
-              <motion.button
-                onClick={() => setSelectedIndex(null)}
-                className="absolute -top-12 right-0 text-[var(--color-gold)] hover:text-[var(--color-platinum)] transition-colors"
-                whileHover={{ scale: 1.1 }}
+              <button
+                onClick={close}
+                className="absolute -top-12 right-0 w-8 h-8 flex items-center justify-center text-[var(--accent)] hover:text-[var(--text-primary)] transition-colors"
+                aria-label="Close gallery"
               >
-                <svg
-                  className="w-8 h-8"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </motion.button>
+              </button>
 
-              {/* Navigation Arrows */}
+              {/* Navigation */}
               {images.length > 1 && (
                 <>
-                  <motion.button
-                    onClick={() =>
-                      setSelectedIndex(
-                        selectedIndex === 0 ? images.length - 1 : selectedIndex - 1
-                      )
-                    }
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-gold)] hover:text-[var(--color-platinum)] transition-colors"
-                    whileHover={{ scale: 1.1, x: -4 }}
+                  <button
+                    onClick={goPrev}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[var(--bg-void)]/60 backdrop-blur-sm border border-[var(--border-subtle)] flex items-center justify-center text-[var(--accent)] hover:text-[var(--text-primary)] hover:border-[var(--accent)]/30 transition-all"
+                    aria-label="Previous image"
                   >
-                    <svg
-                      className="w-8 h-8"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
-                  </motion.button>
+                  </button>
 
-                  <motion.button
-                    onClick={() =>
-                      setSelectedIndex(
-                        selectedIndex === images.length - 1 ? 0 : selectedIndex + 1
-                      )
-                    }
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-gold)] hover:text-[var(--color-platinum)] transition-colors"
-                    whileHover={{ scale: 1.1, x: 4 }}
+                  <button
+                    onClick={goNext}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[var(--bg-void)]/60 backdrop-blur-sm border border-[var(--border-subtle)] flex items-center justify-center text-[var(--accent)] hover:text-[var(--text-primary)] hover:border-[var(--accent)]/30 transition-all"
+                    aria-label="Next image"
                   >
-                    <svg
-                      className="w-8 h-8"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </motion.button>
+                  </button>
 
                   {/* Counter */}
-                  <p className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-sm text-[var(--color-silver)]">
+                  <p className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-[var(--text-tertiary)] tracking-wider">
                     {selectedIndex + 1} / {images.length}
                   </p>
                 </>

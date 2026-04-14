@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Inter } from "next/font/google";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -42,8 +44,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
-      <body className="bg-[var(--color-obsidian)] text-[var(--color-platinum)] min-h-screen">
-        {children}
+      <body className="min-h-screen">
+        <a href="#main-content" className="skip-nav">
+          Skip to main content
+        </a>
+        <Header />
+        <div id="main-content">
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );

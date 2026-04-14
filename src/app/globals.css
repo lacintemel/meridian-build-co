@@ -1,57 +1,150 @@
 @import "tailwindcss";
 
 /* ========================================
-   MERIDIAN BUILD CO. - REFINED DESIGN SYSTEM
-   Luxury, Precision, Architectural Excellence
+   MERIDIAN BUILD CO. — PREMIUM DESIGN SYSTEM
+   Architecture · Construction · Engineering
    ======================================== */
 
+/* ----------------------------------------
+   DESIGN TOKENS
+   ---------------------------------------- */
 :root {
-  /* Primary Dark Palette - Deeper & Richer */
-  --color-obsidian: #050505;
-  --color-charcoal: #0F0F10;
-  --color-graphite: #1C1C1E;
-  --color-slate: #2C2C2E;
-  --color-steel: #3A3A3C;
+  /* Background Scale — deep to elevated */
+  --bg-void: #030304;
+  --bg-primary: #0A0A0C;
+  --bg-elevated: #111115;
+  --bg-surface: #1A1A1F;
+  --bg-hover: #222228;
 
-  /* Accent Colors - More Metallic & Sophisticated */
-  --color-gold: #D4AF37;
-  /* Metallic Gold */
-  --color-gold-light: #F9E2AF;
-  --color-gold-dark: #996515;
-  --color-bronze: #804A00;
+  /* Accent — Warm Champagne Gold */
+  --accent: #C8A960;
+  --accent-light: #E8D5A0;
+  --accent-muted: #8B7A45;
+  --accent-glow: rgba(200, 169, 96, 0.08);
 
-  /* Neutral Tones */
-  --color-platinum: #F2F2F7;
-  --color-silver: #8E8E93;
-  --color-ash: #48484A;
+  /* Text Scale */
+  --text-primary: #F0EDE6;
+  --text-secondary: #9A9590;
+  --text-tertiary: #5E5A55;
 
   /* Functional Colors */
-  --color-success: #30D158;
-  --color-error: #FF453A;
+  --success: #4ADE80;
+  --error: #F87171;
 
-  /* Typography - Precision Fonts */
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(200, 169, 96, 0.20);
+
+  /* Legacy aliases (for any remaining references) */
+  --color-obsidian: var(--bg-void);
+  --color-charcoal: var(--bg-primary);
+  --color-graphite: var(--bg-elevated);
+  --color-slate: var(--bg-surface);
+  --color-steel: var(--bg-hover);
+  --color-gold: var(--accent);
+  --color-gold-light: var(--accent-light);
+  --color-gold-dark: var(--accent-muted);
+  --color-bronze: var(--accent-muted);
+  --color-platinum: var(--text-primary);
+  --color-silver: var(--text-secondary);
+  --color-ash: var(--text-tertiary);
+  --color-success: var(--success);
+  --color-error: var(--error);
+
+  /* Typography */
   --font-heading: "Outfit", sans-serif;
   --font-body: "Inter", sans-serif;
 
-  /* Transitions - Smoother Bezier Curves */
-  --transition-smooth: 800ms cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Spacing — Fluid */
+  --space-section: clamp(5rem, 10vh, 8rem);
+  --space-section-lg: clamp(7rem, 14vh, 11rem);
+  --space-content: clamp(3rem, 6vh, 5rem);
+  --container-max: 1280px;
+  --container-padding: clamp(1.25rem, 4vw, 3rem);
+
+  /* Transitions */
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-smooth: 600ms var(--ease-smooth);
+  --transition-fast: 300ms var(--ease-smooth);
+  --transition-bounce: 500ms var(--ease-bounce);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 }
 
-/* ========================================
-   BASE STYLES
-   ======================================== */
+/* ----------------------------------------
+   BASE RESET & STYLES
+   ---------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-obsidian);
-  color: var(--color-platinum);
-  line-height: 1.6;
+  background-color: var(--bg-void);
+  color: var(--text-primary);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Hide scrollbar for clean look while keeping functionality */
+/* Focus Accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--accent);
+  color: var(--bg-void);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-muted);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* No-scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -61,66 +154,212 @@ body {
   scrollbar-width: none;
 }
 
-/* ========================================
-   REFINED TYPOGRAPHY
-   ======================================== */
+/* Skip Navigation – Accessibility */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: var(--bg-void);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--radius-md);
+  transition: top var(--transition-fast);
+}
 
+.skip-nav:focus {
+  top: 1rem;
+}
+
+/* ----------------------------------------
+   TYPOGRAPHY
+   ---------------------------------------- */
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
-  text-transform: none;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.15;
 }
 
+h1 {
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  letter-spacing: -0.01em;
+}
+
+/* Display heading — for hero sections */
+.text-display {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+/* Gold gradient text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--accent-light), var(--accent), var(--accent-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Overline label */
+.text-overline {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Text reveal animation container */
 .text-reveal {
   overflow: hidden;
   display: inline-block;
   vertical-align: bottom;
 }
 
-/* ========================================
-   ARCHITECTURAL GRID & LAYOUT
-   ======================================== */
-
-.grid-structure {
-  background-image:
-    linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
+/* ----------------------------------------
+   LAYOUT — CONTAINER & SPACING
+   ---------------------------------------- */
+.container-luxury {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
 }
 
-.glass-morphism {
-  background: rgba(15, 15, 16, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+.section-spacing {
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
 }
 
-.glass-gold {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.02));
-  border: 1px solid rgba(212, 175, 55, 0.2);
+.section-spacing-lg {
+  padding-top: var(--space-section-lg);
+  padding-bottom: var(--space-section-lg);
 }
 
-/* ========================================
-   COMPONENTS
-   ======================================== */
+/* ----------------------------------------
+   COMPONENTS — CARDS
+   ---------------------------------------- */
+.card-dark {
+  position: relative;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast),
+              background-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.card-dark:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-surface);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3),
+              0 0 0 1px var(--border-accent);
+}
+
+.card-metadata-category {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(200, 169, 96, 0.08);
+  border: 1px solid rgba(200, 169, 96, 0.15);
+  border-radius: 99px;
+}
+
+/* ----------------------------------------
+   COMPONENTS — BUTTONS
+   ---------------------------------------- */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bg-void);
+  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent-muted));
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(200, 169, 96, 0.25);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary > * {
+  position: relative;
+  z-index: 1;
+}
 
 .btn-luxury {
   position: relative;
   display: inline-flex;
-  padding: 1rem 2.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.25rem;
+  font-family: var(--font-heading);
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-size: 0.75rem;
-  color: var(--color-platinum);
-  border: 1px solid var(--color-gold);
+  color: var(--text-primary);
+  border: 1px solid var(--accent);
   background: transparent;
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: all var(--transition-smooth);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btn-luxury::before {
@@ -130,24 +369,191 @@ h4 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--color-gold);
+  background: linear-gradient(135deg, var(--accent), var(--accent-muted));
   transform: translateY(100%);
   transition: transform var(--transition-smooth);
-  z-index: -1;
+  z-index: 0;
 }
 
 .btn-luxury:hover {
-  color: var(--color-obsidian);
+  color: var(--bg-void);
+  border-color: var(--accent-light);
+  box-shadow: 0 4px 20px rgba(200, 169, 96, 0.15);
 }
 
 .btn-luxury:hover::before {
   transform: translateY(0);
 }
 
-/* ========================================
-   ANIMATIONS
-   ======================================== */
+.btn-luxury > * {
+  position: relative;
+  z-index: 1;
+}
 
+/* Ghost button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn-ghost:hover {
+  color: var(--accent);
+}
+
+/* ----------------------------------------
+   COMPONENTS — FORM INPUTS
+   ---------------------------------------- */
+.input-dark {
+  padding: 0.875rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              background-color var(--transition-fast);
+  appearance: none;
+}
+
+.input-dark::placeholder {
+  color: var(--text-tertiary);
+}
+
+.input-dark:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--bg-hover);
+}
+
+.input-dark:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200, 169, 96, 0.12);
+  background: var(--bg-surface);
+}
+
+/* Select dropdown arrow */
+select.input-dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239A9590' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-5-5h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+/* ----------------------------------------
+   GLASS & SURFACE EFFECTS
+   ---------------------------------------- */
+.glass-morphism {
+  background: rgba(10, 10, 12, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.glass-gold {
+  background: linear-gradient(135deg, rgba(200, 169, 96, 0.08), rgba(200, 169, 96, 0.02));
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+}
+
+/* ----------------------------------------
+   BACKGROUND UTILITIES
+   ---------------------------------------- */
+.bg-gradient-radial {
+  background: radial-gradient(ellipse at center, rgba(200, 169, 96, 0.04) 0%, transparent 70%);
+}
+
+.grid-structure {
+  background-image:
+    linear-gradient(rgba(200, 169, 96, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200, 169, 96, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ----------------------------------------
+   ANIMATIONS & TRANSITIONS
+   ---------------------------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes maskReveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-mask {
+  animation: maskReveal 1.2s var(--ease-smooth) forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.reveal-up {
+  opacity: 0;
+}
+
+.reveal-up.in-view {
+  animation: fadeIn 0.8s var(--ease-smooth) forwards;
+}
+
+/* Parallax */
 .parallax-container {
   overflow: hidden;
 }
@@ -157,37 +563,34 @@ h4 {
   will-change: transform;
 }
 
-@keyframes maskReveal {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
+/* ----------------------------------------
+   SECTION DIVIDERS & ACCENTS
+   ---------------------------------------- */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+  margin: 0;
+  border: none;
+}
 
-  to {
-    clip-path: inset(0 0 0 0);
+.accent-line {
+  width: 3rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-muted));
+  border-radius: 2px;
+}
+
+/* ----------------------------------------
+   RESPONSIVE UTILITIES
+   ---------------------------------------- */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
   }
 }
 
-.animate-mask {
-  animation: maskReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Reusing some existing useful animations from previous version but refined */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@media (min-width: 769px) {
+  .hide-desktop {
+    display: none !important;
   }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.reveal-up {
-  opacity: 0;
-}
-
-.reveal-up.in-view {
-  animation: fadeIn 1s var(--transition-smooth) forwards;
 }
